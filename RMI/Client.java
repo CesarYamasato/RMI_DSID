@@ -51,7 +51,6 @@ public class Client{
 
     private void printP() throws RemoteException{
       if(currentPart != null){
-        out.print("HELLO2");
         System.out.println(currentPart.print());
       }
     }
@@ -64,80 +63,72 @@ public class Client{
 
     }
 
-    private void getPart(int id) throws RemoteException{
-      if(currentRepository != null) currentPart = currentRepository.getp(id);
+    private void getPart() throws RemoteException{
+      if(currentRepository != null) {
+        int id = scanner.nextInt();
+        currentPart = currentRepository.getp(id);
+      }
     }
 
-    private void addSubPart(int id, int n) throws RemoteException{
-      if(currentRepository != null) currentSubParts.add(currentRepository.getp(id));
+    private void addSubPart() throws RemoteException{
+      if(currentRepository != null) {
+        int id = scanner.nextInt();
+        currentSubParts.add(currentRepository.getp(id));
+      }
     }
 
-    private void addPart(String name, String description) throws RemoteException{
+    private void addPart() throws RemoteException{
+      if(currentRepository != null){
+        out.println("Part name: ");
+        String name = scanner.next();
+        out.println("Part description: ");
+        String description = scanner.next();
+        out.println("Part will be created using the current Sub parts list");
         currentRepository.addp(description, name, currentSubParts);
+      }
+    }
+
+    private void clearSubParts(){
+      currentSubParts.clear();
+    }
+
+    private static void printOptions(){
+      out.println(
+              "1. Connect to a different repository"+ System.lineSeparator() +
+              "2. List Parts"                       + System.lineSeparator() +
+              "3. Add Part"                         + System.lineSeparator() +
+              "4. Get Part from id"                 + System.lineSeparator() +
+              "5. Add Part to subParts list from id"
+              );
     }
 
 
-    public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException{
-        String host = "";
-        int port = 1099;
-
-       if (args.length > 1)
-         {
-           host = args[0];
-           if(args.length == 2){
-            port = Integer.parseInt(args[1]);
-           }
-         }
-      else
-         {
-           System.out.println("Usage: RMI.Client server");
-           System.exit(1);
-         }        
-
-        // // Request a reference to the server object
-        // //String name = "//"+host;
-        // System.out.println("Looking up: "+host);
-
-        // ServerInterface server = null;
-      
-        //   // In reality, Naming.lookup() will return an instance of
-        //   // examples.rmi.RMIServer_stub.
-        //   // This is typecast into the ServerInterface, which is what
-        //   // specifies the available server methods.
-        //   //System.setProperty("java.rmi.server.hostname","192.168.15.200");
-        //   Registry registry = LocateRegistry.getRegistry(host, port);
-        //   for(String stub : registry.list()){
-        //     System.out.println(stub);
-        //   }
-        //   Scanner scanner = new Scanner(System.in);
-        //   System.out.println("Choose a repository to access");
-        //   String name = scanner.next();
-        //   server = (ServerInterface)registry.lookup(name);
-        //   scanner.close();
-
+    public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException{      
           Client client = new Client();
           while(!client.Connect()){}
           boolean quit = false;
-          // client.addPart("cachorro", "com pulga");
-          // client.getPart(0);
-          // client.printP();
-          // client.addSubPart(0,  1);
-          // client.addPart("cachorro²", "com mais pulgas");
-          // client.getPart(1);
-          while (!quit) {
-            client.printP();
-            int request= scanner.nextInt();
-            switch(request){
 
+          while (!quit) {
+            printOptions();
+            int request = scanner.nextInt();
+            switch(request){
+              case 1:
+                while(!client.Connect());
+                break;
+              case 2:
+                client.listParts();
+                break;
+              case 3:
+                client.addPart();
+                break;
+              case 4:
+                client.getPart();
+                break;
+              case 5:
+                client.addSubPart();
+                break;
             }
-            //server.addp("dog");
-            //System.out.print(server.getp(0).print());
-            //server.lisp();
-            // for(PartInterface part : client.currentSubParts){
-            //   client.Out.println(part.print());
-            // }
           }
           scanner.close();
-          // server = (ServerInterface)Naming.lookup(name);
     }
 }

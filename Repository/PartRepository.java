@@ -41,7 +41,7 @@ public class PartRepository{
 	public void listParts() {
 		for(Map.Entry<Integer, Part> part: List.entrySet()) {
 			int id = part.getKey();
-			List.get(id).print();
+			System.out.println(List.get(id).print());
 		}
 	}
 	
