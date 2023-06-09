@@ -31,23 +31,6 @@ class Server extends  UnicastRemoteObject implements ServerInterface{
 		Repository = new PartRepository(name);
 	}
 
-	// private static void createServer(Registry registry) throws RemoteException, AlreadyBoundException{
-	// 	System.out.println("To create a new repository, type the new name and port to it");
-	// 	System.out.print("name: ");
-	// 	String name = scanner.next();
-	// 	System.out.print(System.lineSeparator()+ "port: ");
-	// 	int port = scanner.nextInt();
-	// 	if (available(port)){
-	// 		Server newServer = new Server(name);
-	// 		registry.bind(name, newServer);
-	// 	}
-	// }
-
-	//Mostra como utilizar o programa a partir da linha de comando
-	private static void printHelp(){
-		System.out.println("Usage: java RMI.java <repository-name> (optional)<port>");
-	}
-
 	//Lista as funções disponíveis do server
 	@Override
 	public void printUse() throws RemoteException {
@@ -109,18 +92,6 @@ class Server extends  UnicastRemoteObject implements ServerInterface{
 	
 	static public void main(String[] args) throws RemoteException, MalformedURLException, AlreadyBoundException {
 		System.setProperty("java.rmi.server.hostname","localhost");
-		// String name = "";
-		// int port = 1099;
-		// if(args.length > 1){
-		// 	name = args[0];
-		// 	if(args.length == 2){
-		// 		port = Integer.parseInt(args[1]);
-		// 	}
-		// }
-		// else{
-		// 	printHelp();
-		// 	System.exit(1);
-		// }
 		Server RepoServer = new Server();
 		
 		boolean quit = false;
