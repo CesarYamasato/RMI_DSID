@@ -40,9 +40,7 @@ public class Part extends UnicastRemoteObject implements PartInterface{
 	//Method for printing all sub parts of current part
 	public String listSubParts() throws RemoteException {
 		String returnStr = "";
-
-		//System.out.println("SubParts of " + description + ":");
-		//System.out.print("	"); //Sub parts are printed with spaces for readability
+		
 		for(Map.Entry<PartInterface ,Integer> partEntry : subParts.entrySet()) {
 			PartInterface part = partEntry.getKey();
 			int quant = partEntry.getValue();
@@ -73,6 +71,16 @@ public class Part extends UnicastRemoteObject implements PartInterface{
 	@Override
 	public String getName() throws RemoteException {
 		return this.name;
+	}
+
+	@Override
+	public String getDescription(){
+		return this.description; 
+	}
+
+	@Override
+	public boolean isPrimitive(){
+		return this.subParts.size() == 0;
 	}
 
 	@Override

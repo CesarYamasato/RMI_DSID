@@ -16,12 +16,13 @@ class Server extends  UnicastRemoteObject implements ServerInterface{
 	
 	private static Scanner scanner = new Scanner(System.in);
 	private PartRepository Repository;
+	private String name;
 
 	protected Server() throws RemoteException, AlreadyBoundException {
 		super();
 		System.out.println("To create a new repository, type the new name and port to it");
 		System.out.print("name: ");
-		String name = scanner.next();
+		name = scanner.next();
 		System.out.print(System.lineSeparator()+ "port: ");
 		int port = scanner.nextInt();
 		if (available(port)){
@@ -43,8 +44,8 @@ class Server extends  UnicastRemoteObject implements ServerInterface{
 
 	//Listar as peças que estão no repositório
 	@Override
-	public void lisp() {
-		Repository.listParts();
+	public String lisp() {
+		return Repository.listParts();
 	}
 
 	 //Obter uma peça com um determinado id
@@ -57,6 +58,18 @@ class Server extends  UnicastRemoteObject implements ServerInterface{
 	@Override
 	public boolean addp(String description, String name, List<PartInterface> list) throws RemoteException {
 		return Repository.addPart(description, name, list);
+	}
+
+	//Retorna quantas peças tẽm no repositório
+	@Override
+	public int getSize(){
+		return Repository.getSize();
+	}
+
+	//Retorna o nome do servidor
+	@Override
+	public String getName(){
+		return this.name;
 	}
 
 	private static boolean available(int port) {

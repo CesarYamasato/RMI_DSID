@@ -3,6 +3,7 @@ import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import static java.lang.System.out;
 
 import RMI.PartInterface;
 
@@ -25,7 +26,7 @@ public class PartRepository{
 		Part temp = List.put(size, part);
 		if(temp == null) {
 			this.size++;
-			System.out.println("added part");
+			out.println("added part");
 			return true;
 		}
 		List.remove(size);
@@ -38,15 +39,21 @@ public class PartRepository{
 		return false;
 	}
 	
-	public void listParts() {
+	public String listParts() {
+		String returnString = "";
 		for(Map.Entry<Integer, Part> part: List.entrySet()) {
 			int id = part.getKey();
-			System.out.println(List.get(id).print());
+			returnString += List.get(id).print();
 		}
+		return returnString;
 	}
 	
 	public Part getPart(int id) {
 		return List.get(id);
 	}
-	
+
+	public int getSize(){
+		return this.List.size();
+	}
+
 }
