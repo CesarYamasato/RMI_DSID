@@ -1,7 +1,6 @@
 package RMI;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
-import java.net.MalformedURLException;
 import java.util.List;
 import java.util.LinkedList;
 import java.rmi.*;
@@ -63,11 +62,12 @@ public class Client{
     }
 
     private void getRepoInfo() throws RemoteException{
-      if(currentRepository != null) out.println(currentRepository.getName() + " Number of Parts: " + currentRepository.getSize());
+      if(currentRepository != null) out.println("Name: " + currentRepository.getName() + "| Number of Parts: " + currentRepository.getSize());
     }
 
     private void getPart() throws RemoteException{
       if(currentRepository != null) {
+        out.println("Part id: ");
         int id = scanner.nextInt();
         currentPart = currentRepository.getp(id);
       }
@@ -75,6 +75,7 @@ public class Client{
 
     private void addSubPart() throws RemoteException{
       if(currentRepository != null) {
+        out.println("SubPart id: ");
         int id = scanner.nextInt();
         currentSubParts.add(currentRepository.getp(id));
       }
@@ -111,7 +112,7 @@ public class Client{
     }
 
 
-    public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException{      
+    public static void main(String[] args) throws RemoteException{      
           Client client = new Client();
           while(!client.Connect()){}
           boolean quit = false;

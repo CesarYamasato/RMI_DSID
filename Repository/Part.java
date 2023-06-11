@@ -21,26 +21,16 @@ public class Part extends UnicastRemoteObject implements PartInterface{
 		this.name = name;
 		this.description = description;
 		for(PartInterface part : list ){
-			System.out.print("HELLO FROM PART");
 			int quant = 0;
 			if(subParts.get(part) != null) {quant = subParts.get(part);}
 			subParts.put(part, quant+1);
 		}
 	}
 	
-	// //Method for adding sub parts
-	// public void addSubPart(List<Part> subPartsList) {
-	// 	for(Part subPart : subPartsList){
-	// 		int quant = 0;
-	// 		if(subParts.get(subPart) != null) {quant = subParts.get(subPart);}
-	// 		subParts.put(subPart, quant+1);
-	// 	}
-	// }
-	
 	//Method for printing all sub parts of current part
 	public String listSubParts() throws RemoteException {
 		String returnStr = "";
-		
+
 		for(Map.Entry<PartInterface ,Integer> partEntry : subParts.entrySet()) {
 			PartInterface part = partEntry.getKey();
 			int quant = partEntry.getValue();
@@ -87,6 +77,4 @@ public class Part extends UnicastRemoteObject implements PartInterface{
 	public int getSubPartSize() throws RemoteException {
 		return this.subParts.size();
 	}
-	
-	//Equals method used for the hash map
 }

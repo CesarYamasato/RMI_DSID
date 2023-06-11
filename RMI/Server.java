@@ -1,7 +1,6 @@
 package RMI;
 import Repository.*;
 
-import java.net.MalformedURLException;
 import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -12,7 +11,7 @@ import java.net.ServerSocket;
 import java.net.DatagramSocket;
 import java.io.IOException;
 
-class Server extends  UnicastRemoteObject implements ServerInterface{
+class Server extends UnicastRemoteObject implements ServerInterface{
 	
 	private static Scanner scanner = new Scanner(System.in);
 	private PartRepository Repository;
@@ -103,7 +102,7 @@ class Server extends  UnicastRemoteObject implements ServerInterface{
 		return false;
 	}
 	
-	static public void main(String[] args) throws RemoteException, MalformedURLException, AlreadyBoundException {
+	static public void main(String[] args) throws RemoteException, AlreadyBoundException {
 		System.setProperty("java.rmi.server.hostname","localhost");
 		Server RepoServer = new Server();
 		
@@ -115,7 +114,7 @@ class Server extends  UnicastRemoteObject implements ServerInterface{
 			int request = scanner.nextInt();
 			switch(request){
 				case 1:
-				RepoServer.lisp();
+				System.out.println(RepoServer.lisp());
 				break;
 				case 2:
 				quit = true;
