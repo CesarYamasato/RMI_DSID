@@ -36,9 +36,9 @@ public class Part extends UnicastRemoteObject implements PartInterface{
 			int quant = partEntry.getValue();
 			
 			String temp = "(Primitiva)";
+			if(part.getSubPartSize() > 0) {temp = "(Composta)";}
 
 			returnStr += "name:     " + part.getName();
-			if(part.getSubPartSize() > 0) {temp = "(Composta)";}
 			returnStr += temp + System.lineSeparator();
 			returnStr += "quantity: " + quant + System.lineSeparator();
 		}
